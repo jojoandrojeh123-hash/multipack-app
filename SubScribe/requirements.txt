@@ -1,0 +1,6 @@
+# SubScribe - Local AI Subtitle Generator
+# Install with: pip install -r requirements.txt
+
+openai-whisper>=20231117
+customtkinter>=5.2.0
+torch>=2.0.0          # pulled automatically by whisper, listed for clarity
