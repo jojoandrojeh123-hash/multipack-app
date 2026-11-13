@@ -17,6 +17,23 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
+      - name: Download FFmpeg and Deno Binaries
+        shell: pwsh
+        run: |
+          Write-Host "Downloading FFmpeg..."
+          Invoke-WebRequest -Uri "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip" -OutFile "ffmpeg.zip"
+          Expand-Archive -Path "ffmpeg.zip" -DestinationPath "ffmpeg_temp"
+          $ffmpegBin = Get-ChildItem -Path "ffmpeg_temp" -Recurse -Filter "ffmpeg.exe" | Select-Object -ExpandProperty DirectoryName
+          $ffprobeBin = Get-ChildItem -Path "ffmpeg_temp" -Recurse -Filter "ffprobe.exe" | Select-Object -ExpandProperty DirectoryName
+          
+          Write-Host "Downloading Deno..."
+          Invoke-WebRequest -Uri "https://github.com/denoland/deno/releases/latest/download/deno-x86_64-pc-windows-msvc.zip" -OutFile "deno.zip"
+          Expand-Archive -Path "deno.zip" -DestinationPath "deno_temp"
+
+          echo "FFMPEG_PATH=$ffmpegBin" >> $env:GITHUB_ENV
+          echo "FFPROBE_PATH=$ffprobeBin" >> $env:GITHUB_ENV
+          echo "DENO_PATH=$(Get-Location)\deno_temp" >> $env:GITHUB_ENV
+
 #      - name: Build GUI Component
 #        run: |
 #          cd UniversalMediaDownloader-GUI
@@ -30,6 +47,16 @@ jobs:
           pip install -r requirements.txt
           pip install pyinstaller
           pyinstaller universal_video_downloader.spec
+
+      - name: Bundle Binaries into TUI Artifact
+        shell: pwsh
+        run: |
+          $tuiDist = "UniversalMediaDownloader-TUI/dist/UVD-TUI"
+          if (!(Test-Path $tuiDist)) { $tuiDist = "UniversalMediaDownloader-TUI/dist" }
+          
+          Copy-Item "$env:FFMPEG_PATH/ffmpeg.exe" -Destination $tuiDist
+          Copy-Item "$env:FFPROBE_PATH/ffprobe.exe" -Destination $tuiDist
+          Copy-Item "$env:DENO_PATH/deno.exe" -Destination $tuiDist
 
 #      - name: Upload GUI Artifact
 #        uses: actions/upload-artifact@v4
