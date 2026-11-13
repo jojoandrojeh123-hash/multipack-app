@@ -1,0 +1,15 @@
+.
+./UniversalMediaDownloader-GUI
+./UniversalMediaDownloader-GUI/UVD-GUI.py
+./UniversalMediaDownloader-GUI/universal_video_downloader.spec
+./UniversalMediaDownloader-GUI/requirements.txt
+./UniversalMediaDownloader-GUI/icon.ico
+./tree_output.txt
+./UniversalMediaDownloader-TUI
+./UniversalMediaDownloader-TUI/UVD-TUI.py
+./UniversalMediaDownloader-TUI/universal_video_downloader.spec
+./UniversalMediaDownloader-TUI/cookies.txt
+./UniversalMediaDownloader-TUI/requirements.txt
+./UniversalMediaDownloader-TUI/icon.ico
+./README.md
+./LICENSE

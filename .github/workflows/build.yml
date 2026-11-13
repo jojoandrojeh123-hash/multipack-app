@@ -1,4 +1,4 @@
-name: Build Windows Executable
+name: Build Windows Executable TUI
 
 on: [push]
 
@@ -16,7 +16,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install yt-dlp pyinstaller
       - name: Build with PyInstaller
-        run: pyinstaller --onefile UVD-TUI.py
+        run: pyinstaller --onefile '/workspaces/multipack-app/UniversalMediaDownloader-TUI/UVD-TUI.py'
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
