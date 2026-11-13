@@ -6,7 +6,7 @@ a = Analysis(
     ['UVD-TUI.py'],
     pathex=[],
     binaries=[],
-    datas=[],
+    datas=[('icon.ico', '.')],  # Bundles the icon file into the package
     hiddenimports=['yt_dlp'],
     hookspath=[],
     hooksconfig={},
@@ -39,4 +39,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    icon='icon.ico',  # Sets the custom icon for the executable file
 )
