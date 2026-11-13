@@ -1,24 +1,48 @@
-name: Build Windows Executable TUI
+name: Build Executables
 
-on: [push]
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install dependencies
+          cache: 'pip'
+
+      - name: Build GUI Component
         run: |
-          python -m pip install --upgrade pip
-          pip install yt-dlp pyinstaller
-      - name: Build with PyInstaller
-        run: pyinstaller --onefile '/workspaces/multipack-app/UniversalMediaDownloader-TUI/UVD-TUI.py'
-      - name: Upload Artifact
+          cd UniversalMediaDownloader-GUI
+          pip install -r requirements.txt
+          pip install pyinstaller
+          pyinstaller universal_video_downloader.spec
+
+      - name: Build TUI Component
+        run: |
+          cd UniversalMediaDownloader-TUI
+          pip install -r requirements.txt
+          pip install pyinstaller
+          pyinstaller universal_video_downloader.spec
+
+      - name: Upload GUI Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: UVD-TUI-Windows
-          path: dist/UVD-TUI.exe
+          name: UniversalMediaDownloader-GUI-Executable
+          path: UniversalMediaDownloader-GUI/dist/
+
+      - name: Upload TUI Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: UniversalMediaDownloader-TUI-Executable
+          path: UniversalMediaDownloader-TUI/dist/
