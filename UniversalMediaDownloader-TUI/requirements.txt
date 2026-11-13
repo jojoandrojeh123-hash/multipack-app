@@ -1,2 +1,3 @@
-customtkinter
+tqdm
 yt-dlp
+time
