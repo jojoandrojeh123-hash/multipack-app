@@ -1,16 +1,12 @@
 name: Build Executables
 
 on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build-windows:
     runs-on: windows-latest
-
+    
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -21,12 +17,12 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: Build GUI Component
-        run: |
-          cd UniversalMediaDownloader-GUI
-          pip install -r requirements.txt
-          pip install pyinstaller
-          pyinstaller universal_video_downloader.spec
+#      - name: Build GUI Component
+#        run: |
+#          cd UniversalMediaDownloader-GUI
+#          pip install -r requirements.txt
+#          pip install pyinstaller
+#          pyinstaller universal_video_downloader.spec
 
       - name: Build TUI Component
         run: |
@@ -35,11 +31,11 @@ jobs:
           pip install pyinstaller
           pyinstaller universal_video_downloader.spec
 
-      - name: Upload GUI Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: UniversalMediaDownloader-GUI-Executable
-          path: UniversalMediaDownloader-GUI/dist/
+#      - name: Upload GUI Artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: UniversalMediaDownloader-GUI-Executable
+#          path: UniversalMediaDownloader-GUI/dist/
 
       - name: Upload TUI Artifact
         uses: actions/upload-artifact@v4
