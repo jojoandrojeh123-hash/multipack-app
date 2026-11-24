@@ -3,6 +3,9 @@ name: Run Linux Desktop in Browser
 on:
   workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
 
+permissions:
+  contents: read
+
 jobs:
   desktop:
     runs-on: ubuntu-latest

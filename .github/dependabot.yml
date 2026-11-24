@@ -1,10 +1,19 @@
+
 version: 2
+
 updates:
+  # Python dependencies
+  - package-ecosystem: "pip"
+    directory: "/UniversalMediaDownloader"
+    schedule:
+      interval: "weekly"
+
   - package-ecosystem: "pip"
     directory: "/UniversalMediaDownloader-TUI"
     schedule:
       interval: "weekly"
 
+  # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
