@@ -13,7 +13,7 @@
 
 | Version | Size |
 |---------|------|
-| [Universal Media Downloader.exe](https://your-netlify-url.netlify.app) | ~35 MB |
+| [Universal Media Downloader.exe](https://your-netlify-url.netlify.app) | ~140 MB |
 
 > Just download and run — no Python, no pip, no terminal required.
 
